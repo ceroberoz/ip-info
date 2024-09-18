@@ -24,6 +24,8 @@ IP Info IOTA is a web application that shows you detailed information about IP a
 
 4. **Caching System**: Utilizes Vercel KV for efficient data caching to improve performance.
 
+5. **Client IP Detection**: Now accurately detects and uses the client's IP address instead of the server's IP.
+
 ## Where does the information come from?
 
 We primarily use the following sources:
@@ -33,7 +35,7 @@ We primarily use the following sources:
 ## How to use IP Info IOTA
 
 1. Open the website
-2. Click the "Get Started" button
+2. The application automatically detects your IP and displays information
 3. View detailed IP and DNS information, along with a map showing the IP's location
 
 ## Why use IP Info IOTA?
@@ -47,7 +49,7 @@ We primarily use the following sources:
 ## Technical Details
 
 This project is built with:
-- Next.js (a React framework)
+- Next.js 13 (a React framework)
 - React Leaflet for map integration
 - Tailwind CSS for styling
 - Vercel KV for caching data
@@ -58,9 +60,14 @@ Key components:
 - `IpInfoLanding`: Main component handling the UI and data fetching
 - API route for fetching and caching IP and DNS information
 
+Recent updates:
+- Implemented dynamic routing to ensure proper client IP detection
+- Enhanced caching mechanism to work with individual client IPs
+- Improved error handling and fallback mechanisms
+
 ## Ethical Use and Privacy
 
-This tool uses randomly generated strings for DNS lookups to ensure privacy. Always use this tool responsibly and in compliance with applicable laws and terms of service.
+This tool uses randomly generated strings for DNS lookups to ensure privacy. It now accurately uses the client's IP address for lookups. Always use this tool responsibly and in compliance with applicable laws and terms of service.
 
 ## Future Plans
 
@@ -68,6 +75,7 @@ This tool uses randomly generated strings for DNS lookups to ensure privacy. Alw
 - Add more detailed network information
 - Create a history feature to track changes in connections
 - Allow users to input custom IP addresses for lookup
+- Enhance mobile responsiveness
 
 Feedback and suggestions are always welcome!
 

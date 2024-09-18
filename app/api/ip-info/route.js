@@ -11,9 +11,18 @@ function generateRandomString(length) {
   return result;
 }
 
-export async function GET() {
+export const dynamic = "force-dynamic";
+
+export async function GET(request) {
   try {
-    const cacheKey = "ip_info_general";
+    // Get the client's IP address from the request
+    const clientIp =
+      request.headers.get("x-forwarded-for")?.split(",")[0] ||
+      request.headers.get("x-real-ip") ||
+      request.ip ||
+      "Unknown";
+
+    const cacheKey = `ip_info_${clientIp}`;
     let isFromCache = false;
 
     // Try to get cached data
@@ -21,7 +30,7 @@ export async function GET() {
 
     if (!combinedData) {
       // If no cached data, fetch new data
-      const ipResponse = await fetch("http://ip-api.com/json");
+      const ipResponse = await fetch(`http://ip-api.com/json/${clientIp}`);
       if (!ipResponse.ok) {
         throw new Error(`IP API responded with status: ${ipResponse.status}`);
       }
