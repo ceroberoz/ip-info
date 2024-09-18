@@ -1,88 +1,61 @@
 # IP Info IOTA
 
-## What is this project about?
+## About
 
-IP Info IOTA is a web application that shows you detailed information about IP addresses and DNS settings. It's like a mirror for internet connections, reflecting back important details about how devices are connected to the web.
+IP Info IOTA is a web app that shows you details about your internet connection. It tells you about your IP address and DNS settings in an easy-to-understand way.
 
-### Main Features:
+## Main Features
 
-1. **IP Information**: See details about an IP address, including:
-   - The IP address itself
-   - Country and city location
-   - Region and zip code
-   - Latitude and longitude
-   - Internet Service Provider (ISP)
-   - Organization
-   - AS (Autonomous System) information
+1. **IP Information**: See where your connection is coming from and who provides it.
+2. **DNS Details**: Learn about the servers that help you browse the web.
+3. **Map View**: See your IP location on a world map.
+4. **Fast Loading**: We save information to show it to you quickly.
+5. **Accurate Detection**: We find your real IP address, not our server's.
 
-2. **DNS Information**: Learn about Domain Name System servers, including:
-   - The IP address of DNS servers
-   - Location of DNS servers
-   - EDNS (Extension mechanisms for DNS) details
+## How to Use
 
-3. **Interactive Map**: Visualize the geographical location of the IP address on a map.
+1. Go to our website. (https://ip-info-iota.vercel.app)
+2. That's it! We'll show you your connection info right away.
 
-4. **Caching System**: Utilizes Vercel KV for efficient data caching to improve performance.
+## Why Use It?
 
-5. **Client IP Detection**: Now accurately detects and uses the client's IP address instead of the server's IP.
+- Check if your VPN is working.
+- See if your location is correct.
+- Learn about your internet provider.
+- Understand how you connect to the internet.
 
-## Where does the information come from?
+## Tech We Use
 
-We primarily use the following sources:
-- ip-api.com for IP and DNS information
-- OpenStreetMap for map tiles
-
-## How to use IP Info IOTA
-
-1. Open the website
-2. The application automatically detects your IP and displays information
-3. View detailed IP and DNS information, along with a map showing the IP's location
-
-## Why use IP Info IOTA?
-
-- Learn more about your current internet connection
-- Verify VPN functionality
-- Check DNS settings
-- Understand more about internet connectivity and routing
-- Visualize geographical locations of IP addresses
-
-## Technical Details
-
-This project is built with:
-- Next.js 13 (a React framework)
-- React Leaflet for map integration
-- Tailwind CSS for styling
-- Vercel KV for caching data
+- Next.js 13
+- React Leaflet for maps
+- Tailwind CSS for design
+- Vercel KV for saving data
 - Lucide React for icons
 
-Key components:
-- `MapComponent`: Renders an interactive map using React Leaflet
-- `IpInfoLanding`: Main component handling the UI and data fetching
-- API route for fetching and caching IP and DNS information
+## Recent Updates
 
-Recent updates:
-- Implemented dynamic routing to ensure proper client IP detection
-- Enhanced caching mechanism to work with individual client IPs
-- Improved error handling and fallback mechanisms
+- Now works better with different user locations.
+- Saves data for each user separately.
+- Handles errors better.
 
-## Ethical Use and Privacy
+## Privacy
 
-This tool uses randomly generated strings for DNS lookups to ensure privacy. It now accurately uses the client's IP address for lookups. Always use this tool responsibly and in compliance with applicable laws and terms of service.
+We use random codes to look up DNS info to keep your data safe. We only use your IP to show you information about it.
 
-## Future Plans
+## What's Next?
 
-- Implement error handling for map loading
-- Add more detailed network information
-- Create a history feature to track changes in connections
-- Allow users to input custom IP addresses for lookup
-- Enhance mobile responsiveness
+- Better error messages
+- More network details
+- Save your past lookups
+- Let you check other IP addresses
+- Work better on phones
 
-Feedback and suggestions are always welcome!
+We'd love to hear what you think!
 
-## Acknowledgements
+## Thanks To
 
-- Made possible by ip-api.com
-- Uses OpenStreetMap for map data
+- ip-api.com for IP data
+- OpenStreetMap for maps
 
 ## License
 
