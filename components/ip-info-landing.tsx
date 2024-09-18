@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Globe, Server } from "lucide-react";
+import { useState } from "react";
+import { Globe, Server, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import dynamic from "next/dynamic";
@@ -45,114 +45,119 @@ export function IpInfoLanding() {
   const [info, setInfo] = useState<CombinedInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchInfo() {
-      try {
-        const response = await fetch("/api/ip-info");
-        if (!response.ok) {
-          throw new Error("Failed to fetch IP info");
-        }
-        const data = await response.json();
-        setInfo(data);
-      } catch (error) {
-        console.error("Error fetching info:", error);
-        setError("Failed to load IP information. Please try again later.");
+  const handleGetStarted = async () => {
+    try {
+      const response = await fetch("/api/ip-info");
+      if (!response.ok) {
+        throw new Error("Failed to fetch IP info");
       }
+      const data = await response.json();
+      setInfo(data);
+    } catch (error) {
+      console.error("Error fetching info:", error);
+      setError("Failed to load IP information. Please try again later.");
     }
-
-    fetchInfo();
-  }, []);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white">
-      <header className="p-4 bg-white shadow-sm">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-blue-600">IP Info Pro</h1>
-          <Button>Sign Up</Button>
+    <div className="min-h-screen bg-gray-900 text-gray-100 flex flex-col">
+      <header className="p-4 bg-gray-800 shadow-md">
+        <div className="container mx-auto">
+          <h1 className="text-2xl font-bold text-green-400">IOTA</h1>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 flex-grow">
         <section className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-4xl font-bold mb-4 text-green-400">
             Your IP Information at a Glance
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-gray-400 mb-8">
             Discover detailed insights about your IP address and DNS
             configuration.
           </p>
-          <Button size="lg">Get Started</Button>
+          <Button
+            size="lg"
+            onClick={handleGetStarted}
+            className="bg-green-500 text-black hover:bg-green-400"
+          >
+            Get Started
+          </Button>
         </section>
 
         {error ? (
-          <p className="text-red-500 text-center">{error}</p>
+          <p className="text-red-400 text-center">{error}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-center text-green-400">
                   <Globe className="mr-2" />
                   IP Information
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="text-gray-300">
                 {info?.ip ? (
-                  <>
-                    <ul className="space-y-2">
-                      <li>
-                        <strong>IP:</strong> {info.ip.query ?? "N/A"}
-                      </li>
-                      <li>
-                        <strong>Country:</strong> {info.ip.country ?? "N/A"} (
-                        {info.ip.countryCode ?? "N/A"})
-                      </li>
-                      <li>
-                        <strong>Region:</strong> {info.ip.regionName ?? "N/A"} (
-                        {info.ip.region ?? "N/A"})
-                      </li>
-                      <li>
-                        <strong>City:</strong> {info.ip.city ?? "N/A"}
-                      </li>
-                      <li>
-                        <strong>Coordinates:</strong> {info.ip.lat ?? "N/A"},{" "}
-                        {info.ip.lon ?? "N/A"}
-                      </li>
-                      <li>
-                        <strong>Timezone:</strong> {info.ip.timezone ?? "N/A"}
-                      </li>
-                      <li>
-                        <strong>ISP:</strong> {info.ip.isp ?? "N/A"}
-                      </li>
-                      <li>
-                        <strong>Organization:</strong> {info.ip.org ?? "N/A"}
-                      </li>
-                      <li>
-                        <strong>AS:</strong> {info.ip.as ?? "N/A"}
-                      </li>
-                    </ul>
-                    {info.ip.lat && info.ip.lon && (
-                      <div className="mt-4 h-64">
-                        <MapComponent lat={info.ip.lat} lon={info.ip.lon} />
-                      </div>
-                    )}
-                  </>
+                  <ul className="space-y-2">
+                    <li>
+                      <strong>IP:</strong> {info.ip.query ?? "N/A"}
+                    </li>
+                    <li>
+                      <strong>Country:</strong> {info.ip.country ?? "N/A"} (
+                      {info.ip.countryCode ?? "N/A"})
+                    </li>
+                    <li>
+                      <strong>Region:</strong> {info.ip.regionName ?? "N/A"} (
+                      {info.ip.region ?? "N/A"})
+                    </li>
+                    <li>
+                      <strong>City:</strong> {info.ip.city ?? "N/A"}
+                    </li>
+                    <li>
+                      <strong>Timezone:</strong> {info.ip.timezone ?? "N/A"}
+                    </li>
+                    <li>
+                      <strong>ISP:</strong> {info.ip.isp ?? "N/A"}
+                    </li>
+                    <li>
+                      <strong>Organization:</strong> {info.ip.org ?? "N/A"}
+                    </li>
+                    <li>
+                      <strong>AS:</strong>{" "}
+                      {info.ip.as ? (
+                        <>
+                          <a
+                            href={`https://bgpview.io/asn/${info.ip.as.split(" ")[0].substring(2)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-green-400 hover:underline"
+                          >
+                            {info.ip.as.split(" ")[0]}
+                          </a>
+                          {" " + info.ip.as.split(" ").slice(1).join(" ")}
+                        </>
+                      ) : (
+                        "N/A"
+                      )}
+                    </li>
+                  </ul>
                 ) : (
-                  <p>Loading IP information...</p>
+                  <p>Click &ldquo;Get Started&rdquo; to view IP information.</p>
                 )}
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gray-800 border-gray-700">
               <CardHeader>
-                <CardTitle className="flex items-center">
+                <CardTitle className="flex items-center text-blue-400">
                   <Server className="mr-2" />
                   DNS Information
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="text-gray-300">
                 {info?.dns ? (
                   <>
-                    <h3 className="font-semibold mb-2">DNS:</h3>
+                    <h3 className="font-semibold mb-2 text-blue-400">DNS:</h3>
                     <ul className="space-y-2 mb-4">
                       <li>
                         <strong>IP:</strong> {info.dns.dns?.ip ?? "N/A"}
@@ -161,7 +166,7 @@ export function IpInfoLanding() {
                         <strong>Geo:</strong> {info.dns.dns?.geo ?? "N/A"}
                       </li>
                     </ul>
-                    <h3 className="font-semibold mb-2">EDNS:</h3>
+                    <h3 className="font-semibold mb-2 text-blue-400">EDNS:</h3>
                     <ul className="space-y-2">
                       <li>
                         <strong>IP:</strong> {info.dns.edns?.ip ?? "N/A"}
@@ -172,17 +177,52 @@ export function IpInfoLanding() {
                     </ul>
                   </>
                 ) : (
-                  <p>Loading DNS information...</p>
+                  <p>
+                    Click &ldquo;Get Started&rdquo; to view DNS information.
+                  </p>
                 )}
               </CardContent>
             </Card>
           </div>
         )}
+
+        {info?.ip?.lat && info.ip.lon && (
+          <Card className="mt-8 bg-gray-800 border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-purple-400">Map</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-96">
+                <MapComponent lat={info.ip.lat} lon={info.ip.lon} />
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </main>
 
-      <footer className="bg-gray-100 py-8 mt-12">
-        <div className="container mx-auto px-4 text-center text-gray-600">
-          <p>&copy; 2023 IP Info Pro. All rights reserved.</p>
+      <footer className="bg-gray-800 py-8 mt-12">
+        <div className="container mx-auto px-4 text-center text-gray-400">
+          <p className="mb-2">
+            Made possible by{" "}
+            <a
+              href="https://ip-api.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-green-400 hover:underline"
+            >
+              ip-api.com
+            </a>
+          </p>
+          <a
+            href="https://github.com/ceroberoz/ip-info"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center text-green-400 hover:underline"
+          >
+            <Github className="mr-1" size={16} />
+            GitHub Repository
+          </a>
+          <p className="mt-4">&copy; 2023 IOTA. All rights reserved.</p>
         </div>
       </footer>
     </div>

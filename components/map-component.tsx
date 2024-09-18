@@ -22,7 +22,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ lat, lon }) => {
   return (
     <MapContainer
       center={[lat, lon]}
-      zoom={13}
+      zoom={50}
       scrollWheelZoom={false}
       style={{ height: "100%", width: "100%" }}
     >

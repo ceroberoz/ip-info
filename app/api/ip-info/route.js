@@ -14,6 +14,7 @@ function generateRandomString(length) {
 export async function GET() {
   try {
     const cacheKey = "ip_info_general";
+    let isFromCache = false;
 
     // Try to get cached data
     let combinedData = await kv.get(cacheKey);
@@ -40,11 +41,19 @@ export async function GET() {
         dns: dnsData,
       };
 
-      // Cache the data for 1 hour (3600 seconds)
-      await kv.set(cacheKey, combinedData, { ex: 3600 });
+      // Cache the data for 5 minutes (300 seconds)
+      await kv.set(cacheKey, combinedData, { ex: 300 });
+    } else {
+      isFromCache = true;
     }
 
-    return NextResponse.json(combinedData);
+    // Add the isFromCache flag to the response
+    const responseData = {
+      ...combinedData,
+      isFromCache: isFromCache,
+    };
+
+    return NextResponse.json(responseData);
   } catch (error) {
     console.error("Error fetching or caching information:", error);
     return NextResponse.json(
