@@ -4,6 +4,8 @@
 
 IP Info IOTA is a web app that shows you details about your internet connection. It tells you about your IP address and DNS settings in an easy-to-understand way.
 
+![Screenshot](ss.png)
+
 ## Main Features
 
 1. **IP Information**: See where your connection is coming from and who provides it.
