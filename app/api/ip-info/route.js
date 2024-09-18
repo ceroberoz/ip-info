@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { kv } from "@vercel/kv";
 
 function generateRandomString(length) {
   const characters =
@@ -12,30 +13,36 @@ function generateRandomString(length) {
 
 export async function GET() {
   try {
-    // Fetch IP information
-    const ipResponse = await fetch("http://ip-api.com/json");
-    const ipData = await ipResponse.json();
+    const cacheKey = "ip_info_general";
 
-    // Generate random string for DNS API
-    const randomString = generateRandomString(32);
+    // Try to get cached data
+    let combinedData = await kv.get(cacheKey);
 
-    // Fetch DNS information
-    const dnsResponse = await fetch(
-      `http://${randomString}.edns.ip-api.com/json`,
-    );
-    const dnsData = await dnsResponse.json();
+    if (!combinedData) {
+      // If no cached data, fetch new data
+      const ipResponse = await fetch("http://ip-api.com/json");
+      const ipData = await ipResponse.json();
 
-    // Combine the data
-    const combinedData = {
-      ip: ipData,
-      dns: dnsData,
-    };
+      const randomString = generateRandomString(32);
+      const dnsResponse = await fetch(
+        `http://${randomString}.edns.ip-api.com/json`,
+      );
+      const dnsData = await dnsResponse.json();
+
+      combinedData = {
+        ip: ipData,
+        dns: dnsData,
+      };
+
+      // Cache the data for 1 hour (3600 seconds)
+      await kv.set(cacheKey, combinedData, { ex: 3600 });
+    }
 
     return NextResponse.json(combinedData);
   } catch (error) {
-    console.error("Error fetching information:", error);
+    console.error("Error fetching or caching information:", error);
     return NextResponse.json(
-      { error: "Failed to fetch information" },
+      { error: "Failed to fetch or cache information" },
       { status: 500 },
     );
   }

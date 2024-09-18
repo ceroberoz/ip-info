@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# IP Info Pro
 
-## Getting Started
+## What is this project about?
 
-First, run the development server:
+IP Info Pro is a web application that shows you detailed information about your IP address and DNS settings. It's like a mirror for your internet connection, reflecting back important details about how you're connected to the web.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Main Features:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **IP Information**: See where your internet connection is coming from, including:
+   - Your IP address
+   - Your country and city
+   - Your internet service provider (ISP)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **DNS Information**: Learn about the Domain Name System servers you're using, including:
+   - The IP address of your DNS server
+   - Where your DNS server is located
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where does the information come from?
 
-## Learn More
+We use the IP Geolocation API to get information about IP addresses. Here's why it's great:
 
-To learn more about Next.js, take a look at the following resources:
+- It's fast and accurate
+- It's free for non-commercial use
+- You don't need an API key to use it
+- It's easy to add to any project
+- It can give information in different formats (JSON, XML, CSV, Newline, PHP)
+- It's trusted by many businesses and handles over 1 billion requests every day
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How to use IP Info Pro
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Open the website
+2. Click "Get Started"
+3. View your IP and DNS information
 
-## Deploy on Vercel
+It's that simple!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Why use IP Info Pro?
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Learn more about your internet connection
+- Check if you're using a VPN correctly
+- See if your DNS settings are what you expect
+- Understand more about how you connect to the internet
+
+## Technical Details
+
+This project is built with:
+- Next.js (a React framework)
+- Tailwind CSS (for styling)
+- Vercel KV (for caching data)
+
+## Future Plans
+
+We're always looking to improve IP Info Pro. Some ideas we're considering:
+- Adding more detailed network information
+- Creating a history feature to track changes in your connection
+- Allowing users to check information for any IP address, not just their own
+
+Feedback and suggestions are always welcome!

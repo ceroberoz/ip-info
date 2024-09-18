@@ -1,8 +1,9 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { Globe, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { kv } from "@vercel/kv";
 
 interface IpInfo {
   query: string;
@@ -43,24 +44,12 @@ export function IpInfoLanding() {
   useEffect(() => {
     async function fetchInfo() {
       try {
-        // Try to get cached data from Vercel KV
-        const cachedInfo = await kv.get<CombinedInfo>("ip_dns_info");
-
-        if (cachedInfo) {
-          setInfo(cachedInfo);
-        } else {
-          // If no cached data, fetch from API
-          const response = await fetch("/api/ip-info");
-          if (!response.ok) {
-            throw new Error("Failed to fetch IP info");
-          }
-          const data = await response.json();
-
-          // Cache the data in Vercel KV for 1 hour
-          await kv.set("ip_dns_info", data, { ex: 3600 });
-
-          setInfo(data);
+        const response = await fetch("/api/ip-info");
+        if (!response.ok) {
+          throw new Error("Failed to fetch IP info");
         }
+        const data = await response.json();
+        setInfo(data);
       } catch (error) {
         console.error("Error fetching info:", error);
         setError("Failed to load IP information. Please try again later.");
