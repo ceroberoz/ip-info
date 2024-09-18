@@ -175,7 +175,10 @@ export function IpInfoLanding() {
                       </li>
                     </ul>
                   ) : (
-                    <p>Click "Analyze My Connection" to view IP information.</p>
+                    <p>
+                      Click &quot;Analyze My Connection&quot; to view IP
+                      information.
+                    </p>
                   )}
                 </CardContent>
               </Card>
@@ -213,7 +216,8 @@ export function IpInfoLanding() {
                     </>
                   ) : (
                     <p>
-                      Click "Analyze My Connection" to view DNS information.
+                      Click &quot;Analyze My Connection&quot; to view DNS
+                      information.
                     </p>
                   )}
                 </CardContent>
