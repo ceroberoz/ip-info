@@ -1,58 +1,81 @@
-# IP Info Pro
+# IP Info IOTA
 
 ## What is this project about?
 
-IP Info Pro is a web application that shows you detailed information about your IP address and DNS settings. It's like a mirror for your internet connection, reflecting back important details about how you're connected to the web.
+IP Info IOTA is a web application that shows you detailed information about IP addresses and DNS settings. It's like a mirror for internet connections, reflecting back important details about how devices are connected to the web.
 
 ### Main Features:
 
-1. **IP Information**: See where your internet connection is coming from, including:
-   - Your IP address
-   - Your country and city
-   - Your internet service provider (ISP)
+1. **IP Information**: See details about an IP address, including:
+   - The IP address itself
+   - Country and city location
+   - Region and zip code
+   - Latitude and longitude
+   - Internet Service Provider (ISP)
+   - Organization
+   - AS (Autonomous System) information
 
-2. **DNS Information**: Learn about the Domain Name System servers you're using, including:
-   - The IP address of your DNS server
-   - Where your DNS server is located
+2. **DNS Information**: Learn about Domain Name System servers, including:
+   - The IP address of DNS servers
+   - Location of DNS servers
+   - EDNS (Extension mechanisms for DNS) details
+
+3. **Interactive Map**: Visualize the geographical location of the IP address on a map.
+
+4. **Caching System**: Utilizes Vercel KV for efficient data caching to improve performance.
 
 ## Where does the information come from?
 
-We use the IP Geolocation API to get information about IP addresses. Here's why it's great:
+We primarily use the following sources:
+- ip-api.com for IP and DNS information
+- OpenStreetMap for map tiles
 
-- It's fast and accurate
-- It's free for non-commercial use
-- You don't need an API key to use it
-- It's easy to add to any project
-- It can give information in different formats (JSON, XML, CSV, Newline, PHP)
-- It's trusted by many businesses and handles over 1 billion requests every day
-
-## How to use IP Info Pro
+## How to use IP Info IOTA
 
 1. Open the website
-2. Click "Get Started"
-3. View your IP and DNS information
+2. Click the "Get Started" button
+3. View detailed IP and DNS information, along with a map showing the IP's location
 
-It's that simple!
+## Why use IP Info IOTA?
 
-## Why use IP Info Pro?
-
-- Learn more about your internet connection
-- Check if you're using a VPN correctly
-- See if your DNS settings are what you expect
-- Understand more about how you connect to the internet
+- Learn more about your current internet connection
+- Verify VPN functionality
+- Check DNS settings
+- Understand more about internet connectivity and routing
+- Visualize geographical locations of IP addresses
 
 ## Technical Details
 
 This project is built with:
 - Next.js (a React framework)
-- Tailwind CSS (for styling)
-- Vercel KV (for caching data)
+- React Leaflet for map integration
+- Tailwind CSS for styling
+- Vercel KV for caching data
+- Lucide React for icons
+
+Key components:
+- `MapComponent`: Renders an interactive map using React Leaflet
+- `IpInfoLanding`: Main component handling the UI and data fetching
+- API route for fetching and caching IP and DNS information
+
+## Ethical Use and Privacy
+
+This tool uses randomly generated strings for DNS lookups to ensure privacy. Always use this tool responsibly and in compliance with applicable laws and terms of service.
 
 ## Future Plans
 
-We're always looking to improve IP Info Pro. Some ideas we're considering:
-- Adding more detailed network information
-- Creating a history feature to track changes in your connection
-- Allowing users to check information for any IP address, not just their own
+- Implement error handling for map loading
+- Add more detailed network information
+- Create a history feature to track changes in connections
+- Allow users to input custom IP addresses for lookup
 
 Feedback and suggestions are always welcome!
+
+## Acknowledgements
+
+- Made possible by ip-api.com
+- Uses OpenStreetMap for map data
+
+## License
+
+© 2024 IOTA. All rights reserved.
