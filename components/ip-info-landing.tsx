@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 import { Globe, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import dynamic from "next/dynamic";
+import "leaflet/dist/leaflet.css";
+
+const MapComponent = dynamic(() => import("./map-component"), { ssr: false });
 
 interface IpInfo {
   query: string;
@@ -93,37 +97,45 @@ export function IpInfoLanding() {
               </CardHeader>
               <CardContent>
                 {info?.ip ? (
-                  <ul className="space-y-2">
-                    <li>
-                      <strong>IP:</strong> {info.ip.query}
-                    </li>
-                    <li>
-                      <strong>Country:</strong> {info.ip.country} (
-                      {info.ip.countryCode})
-                    </li>
-                    <li>
-                      <strong>Region:</strong> {info.ip.regionName} (
-                      {info.ip.region})
-                    </li>
-                    <li>
-                      <strong>City:</strong> {info.ip.city}
-                    </li>
-                    <li>
-                      <strong>Coordinates:</strong> {info.ip.lat}, {info.ip.lon}
-                    </li>
-                    <li>
-                      <strong>Timezone:</strong> {info.ip.timezone}
-                    </li>
-                    <li>
-                      <strong>ISP:</strong> {info.ip.isp}
-                    </li>
-                    <li>
-                      <strong>Organization:</strong> {info.ip.org}
-                    </li>
-                    <li>
-                      <strong>AS:</strong> {info.ip.as}
-                    </li>
-                  </ul>
+                  <>
+                    <ul className="space-y-2">
+                      <li>
+                        <strong>IP:</strong> {info.ip.query ?? "N/A"}
+                      </li>
+                      <li>
+                        <strong>Country:</strong> {info.ip.country ?? "N/A"} (
+                        {info.ip.countryCode ?? "N/A"})
+                      </li>
+                      <li>
+                        <strong>Region:</strong> {info.ip.regionName ?? "N/A"} (
+                        {info.ip.region ?? "N/A"})
+                      </li>
+                      <li>
+                        <strong>City:</strong> {info.ip.city ?? "N/A"}
+                      </li>
+                      <li>
+                        <strong>Coordinates:</strong> {info.ip.lat ?? "N/A"},{" "}
+                        {info.ip.lon ?? "N/A"}
+                      </li>
+                      <li>
+                        <strong>Timezone:</strong> {info.ip.timezone ?? "N/A"}
+                      </li>
+                      <li>
+                        <strong>ISP:</strong> {info.ip.isp ?? "N/A"}
+                      </li>
+                      <li>
+                        <strong>Organization:</strong> {info.ip.org ?? "N/A"}
+                      </li>
+                      <li>
+                        <strong>AS:</strong> {info.ip.as ?? "N/A"}
+                      </li>
+                    </ul>
+                    {info.ip.lat && info.ip.lon && (
+                      <div className="mt-4 h-64">
+                        <MapComponent lat={info.ip.lat} lon={info.ip.lon} />
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <p>Loading IP information...</p>
                 )}
@@ -143,19 +155,19 @@ export function IpInfoLanding() {
                     <h3 className="font-semibold mb-2">DNS:</h3>
                     <ul className="space-y-2 mb-4">
                       <li>
-                        <strong>IP:</strong> {info.dns.dns.ip}
+                        <strong>IP:</strong> {info.dns.dns?.ip ?? "N/A"}
                       </li>
                       <li>
-                        <strong>Geo:</strong> {info.dns.dns.geo}
+                        <strong>Geo:</strong> {info.dns.dns?.geo ?? "N/A"}
                       </li>
                     </ul>
                     <h3 className="font-semibold mb-2">EDNS:</h3>
                     <ul className="space-y-2">
                       <li>
-                        <strong>IP:</strong> {info.dns.edns.ip}
+                        <strong>IP:</strong> {info.dns.edns?.ip ?? "N/A"}
                       </li>
                       <li>
-                        <strong>Geo:</strong> {info.dns.edns.geo}
+                        <strong>Geo:</strong> {info.dns.edns?.geo ?? "N/A"}
                       </li>
                     </ul>
                   </>
